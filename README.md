@@ -1,5 +1,5 @@
 # BATIM
-A web port of [Bendy and the Ink Machine](https://store.steampowered.com/app/622650/Bendy_and_the_Ink_Machine/), made by crackers.
+A web port of [Bendy and the Ink Machine](https://store.steampowered.com/app/622650/Bendy_and_the_Ink_Machine/), made by crackers and slqnt.
 If you use this on your own website/thing pls credit me!
 
 # What's different in this port than the others?
