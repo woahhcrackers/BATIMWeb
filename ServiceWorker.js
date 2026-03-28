@@ -1,9 +1,9 @@
 const cacheName = "woahhcrackers-Bendy and the Ink Machine-1.0";
 const contentToCache = [
-    "Build/BATIM.loader.js",
-    "Build/BATIM.framework.js",
-    "Build/BATIM.data",
-    "Build/BATIM.wasm",
+    "Build/bender.loader.js",
+    "Build/bender.framework.js",
+    "Build/bender.data",
+    "Build/bender.wasm",
     "TemplateData/style.css"
 
 ];
