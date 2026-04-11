@@ -17,6 +17,9 @@ If you use this on your own website/thing pls credit me!
 - Audio bugs in CH2
 - Lag (not a lot of it but still)
 - Minor shader Issues
+- No text transparency
+- Memory issues
+- Tunnel in CH5 is broken
 
 ## How To Locally Host
 1. Clone/download this repo
