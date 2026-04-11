@@ -10,6 +10,10 @@ If you use this on your own website/thing pls credit me!
 - Fixed many more things
 - Only ~600MB
 - QoL additions
+- Faster elevator in CH3
+- Autosaving
+- Many performance fixes
+- No laggy mouse movement (even the base game has this LOL)
 - And more!
 
 # Known Issues
