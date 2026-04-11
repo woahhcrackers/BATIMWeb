@@ -14,6 +14,7 @@ If you use this on your own website/thing pls credit me!
 - Autosaving
 - Many performance fixes
 - No laggy mouse movement (even the base game has this LOL)
+- Faster boat throttling in CH5
 - And more!
 
 # Known Issues
