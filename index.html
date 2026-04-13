@@ -101,11 +101,9 @@ const merge = async urls => {
 };
 
 (async () => {
-  let data = `${base}${name}.data`;
-  if (!(await ex(data))) data = await merge(await parts("data"));
+  let data  = await merge(await parts("data"));
 
-  let wasm = `${base}${name}.wasm`;
-  if (!(await ex(wasm))) wasm = await merge(await parts("wasm"));
+  let wasm = await merge(await parts("wasm"));
 
   const sc = document.createElement("script");
   sc.src = `${base}${name}.loader.js`;
