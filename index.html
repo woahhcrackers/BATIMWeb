@@ -1,130 +1,147 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <title>crackerloader</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+
+<head>
+  <meta charset="utf-8">
+  <base href="https://cdn.jsdelivr.net/gh/woahhcrackers/BATIMWeb@main/">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity Web Player | Bendy and the Ink Machine</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+</head>
+
+<body>
+  <div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" width=1280 height=720 tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+      <div id="unity-logo"></div>
+        <div id="unity-progress-bar-full"></div>
+      </div>
+    </div>
+    <div id="unity-warning"> </div>
+    <div id="unity-footer">
+      <div id="unity-logo-title-footer"></div>
+      <div id="unity-fullscreen-button"></div>
+      <div id="unity-build-title">Bendy and the Ink Machine</div>
+    </div>
+  </div>
+  	            <script>
+      window.fileMergerConfig = {
+        files: [
+          { name: 'bendy.data', parts: 30 },
+          { name: 'bendy.wasm', parts: 2 },
+        ],
+        basePath: 'Build/',
+        debug: true
+      };  
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/woahhcrackers/BATIMWeb@main/merge.js"></script>
+  <script>
+    var canvas = document.querySelector("#unity-canvas");
+
+    // Shows a temporary message banner/ribbon for a few seconds, or
+    // a permanent error message on top of the canvas if type=='error'.
+    // If type=='warning', a yellow highlight color is used.
+    // Modify or remove this function to customize the visually presented
+    // way that non-critical warnings and error messages are presented to the
+    // user.
+    function unityShowBanner(msg, type) {
+      var warningBanner = document.querySelector("#unity-warning");
+
+      function updateBannerVisibility() {
+        warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
       }
-
-      body {
-        background: #000;
-        overflow: hidden;
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+      if (type == 'error') div.style = 'background: red; padding: 10px;';
+      else {
+        if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+        setTimeout(function() {
+          warningBanner.removeChild(div);
+          updateBannerVisibility();
+        }, 5000);
       }
+      updateBannerVisibility();
+    }
 
-      #loading-text {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
-        font: 24px Arial;
-        text-align: center;
-        z-index: 10;
-      }
-
-      #unity-canvas {
-        width: 100vw;
-        height: 100vh;
-        display: block;
-      }
-
-      #unity-mobile-warning {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
-        background: rgba(0, 0, 0, .9);
-        padding: 20px;
-        border-radius: 8px;
-        font: 14px Arial;
-        z-index: 20;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="unity-mobile-warning">WebGL not supported on mobile</div>
-    <div id="loading-text">Loading</div>
-    <canvas id="unity-canvas"></canvas>
-<script>
-alert("this web port was made by crackers (woahhcrackers) + slqnt dont take credit for it");
-
-const lt = document.getElementById("loading-text");
-const cv = document.getElementById("unity-canvas");
-const mw = document.getElementById("unity-mobile-warning");
-
-
-
-
-const base = "https://cdn.jsdelivr.net/gh/woahhcrackers/BATIMWeb@main/Build/";
-const name = "bendy";
-
-
-
-
-if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-  const m = document.createElement("meta");
-  m.name = "viewport";
-  m.content = "width=device-width,height=device-height,initial-scale=1,user-scalable=no";
-  document.head.appendChild(m);
-  mw.style.display = "block";
-  setTimeout(() => mw.style.display = "none", 5000);
-}
-
-const ex = async u => {
-  try { return (await fetch(u, { method: "HEAD" })).ok } catch { return false }
-};
-
-const parts = async ext => {
-  const out = [];
-
-  for (let i = 1; i < 100; i++) {
-    const p = `${base}${name}.${ext}.${String(i).padStart(3,"0")}`;
-    const r = await fetch(p, { method: "HEAD" });
-
-    if (r.status !== 200) break;
-
-    out.push(p);
-  }
-
-  return out;
-};
-
-const merge = async urls => {
-  const bufs = await Promise.all(urls.map(u => fetch(u).then(r => r.arrayBuffer())));
-  return URL.createObjectURL(new Blob(bufs));
-};
-
-(async () => {
-  let data  = await merge(await parts("data"));
-
-  let wasm = await merge(await parts("wasm"));
-
-  const sc = document.createElement("script");
-  sc.src = `${base}${name}.loader.js`;
-
-  sc.onload = () => {
-    createUnityInstance(cv, {
-      dataUrl: data,
-      frameworkUrl: `${base}${name}.framework.js`,
-      codeUrl: wasm,
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/bendy.loader.js";
+    var config = {
+      arguments: [],
+      dataUrl: buildUrl + "/bendy.data",
+      frameworkUrl: buildUrl + "/bendy.framework.js",
+      codeUrl: buildUrl + "/bendy.wasm",
       streamingAssetsUrl: "StreamingAssets",
-      companyName: "crackers",
-      productName: name,
-      productVersion: "1.0"
-    }).then(() => lt.remove()).catch(console.error);
-  };
+      companyName: "Funday Games",
+      productName: "Reacticore",
+      productVersion: "0.0.2",
+      showBanner: unityShowBanner,
+      // errorHandler: function(err, url, line) {
+      //    alert("error " + err + " occurred at line " + line);
+      //    // Return 'true' if you handled this error and don't want Unity
+      //    // to process it further, 'false' otherwise.
+      //    return true;
+      // },
+    };
 
-  document.body.appendChild(sc);
-  
-  
-  alert("this web port was made by crackers (woahhcrackers) + slqnt dont take credit for it");
-})();
-</script>
-  </body>
+    // By default, Unity keeps WebGL canvas render target size matched with
+    // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+    // Set this to false if you want to decouple this synchronization from
+    // happening inside the engine, and you would instead like to size up
+    // the canvas DOM size and WebGL render target sizes yourself.
+    // config.matchWebGLToCanvasSize = false;
+
+    // If you would like all file writes inside Unity Application.persistentDataPath
+    // directory to automatically persist so that the contents are remembered when
+    // the user revisits the site the next time, uncomment the following line:
+    // config.autoSyncPersistentDataPath = true;
+    // This autosyncing is currently not the default behavior to avoid regressing
+    // existing user projects that might rely on the earlier manual
+    // JS_FileSystem_Sync() behavior, but in future Unity version, this will be
+    // expected to change.
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      // Mobile device style: fill the whole browser client area with the game canvas:
+
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+      document.querySelector("#unity-container").className = "unity-mobile";
+      canvas.className = "unity-mobile";
+
+      // To lower canvas resolution on mobile devices to gain some
+      // performance, uncomment the following line:
+      // config.devicePixelRatio = 1;
+
+
+    } else {
+      // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+      canvas.style.width = "105vw";
+      canvas.style.height = "105vh";
+    }
+
+    document.querySelector("#unity-loading-bar").style.display = "block";
+
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+      }).then((unityInstance) => {
+        document.querySelector("#unity-loading-bar").style.display = "none";
+        document.querySelector("#unity-fullscreen-button").onclick = () => {
+          unityInstance.SetFullscreen(1);
+        };
+
+      }).catch((message) => {
+        alert(message);
+      });
+    };
+
+    document.body.appendChild(script);
+  </script>
+</body>
+
 </html>

@@ -1,3 +1,9 @@
+// original merge.js by bubbls on github
+// i couldve js made my own merge system but im too lazy
+// jk i did make my own it js took 5 minutes to load
+// sorry
+// ):
+
 (function () {
   "use strict";
 
@@ -50,8 +56,6 @@
 
     const lines = [
       '<div style="font-size: 18px; margin-bottom: 15px;">loading...</div>',
-      '<a href="https://www.gn-math.dev/" style="font-size: 15px; color: #d42222; text-decoration: underline; margin-bottom: 10px; display: block;">gn-math</a>',
-      '<a href="https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/" style="font-size: 15px; color: #14b4f3; text-decoration: underline; margin-bottom: 10px; display: block;">ugs</a>',
     ];
 
     config.files.forEach((file) => {
