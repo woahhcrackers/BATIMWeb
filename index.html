@@ -28,8 +28,8 @@
   	            <script>
       window.fileMergerConfig = {
         files: [
-          { name: 'bendy.data', parts: 29 },
-          { name: 'bendy.wasm', parts: 2 },
+          { name: 'bend.data', parts: 29 },
+          { name: 'bend.wasm', parts: 2 },
         ],
         basePath: 'Build/',
         debug: true
@@ -66,15 +66,15 @@
     }
 
     var buildUrl = "Build";
-    var loaderUrl = buildUrl + "/bendy.loader.js";
+    var loaderUrl = buildUrl + "/bend.loader.js";
     var config = {
       arguments: [],
-      dataUrl: buildUrl + "/bendy.data",
-      frameworkUrl: buildUrl + "/bendy.framework.js",
-      codeUrl: buildUrl + "/bendy.wasm",
+      dataUrl: buildUrl + "/bend.data",
+      frameworkUrl: buildUrl + "/bend.framework.js",
+      codeUrl: buildUrl + "/bend.wasm",
       streamingAssetsUrl: "StreamingAssets",
-      companyName: "Funday Games",
-      productName: "Reacticore",
+      companyName: "crackers",
+      productName: "Bendy and the Ink Machine",
       productVersion: "0.0.2",
       showBanner: unityShowBanner,
       // errorHandler: function(err, url, line) {
@@ -113,7 +113,7 @@
 
       // To lower canvas resolution on mobile devices to gain some
       // performance, uncomment the following line:
-      // config.devicePixelRatio = 1;
+      config.devicePixelRatio = 1;
 
 
     } else {

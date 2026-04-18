@@ -1,9 +1,9 @@
 const cacheName = "woahhcrackers-Bendy and the Ink Machine-1.0";
 const contentToCache = [
-    "Build/bendy.loader.js",
-    "Build/bendy.framework.js",
-    "Build/bendy.data",
-    "Build/bendy.wasm",
+    "Build/bend.loader.js",
+    "Build/bend.framework.js",
+    "Build/bend.data",
+    "Build/bend.wasm",
     "TemplateData/style.css"
 
 ];
